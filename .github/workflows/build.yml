@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: |
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ pkginstall=""; if(NR!=1) pkginstall="pacman --noconfirm -U /tmp/*.pkg.tar.zst ; "; print pkginstall"cd /tmp/"$1"; su builder -c \"yes '' | makepkg --noconfirm -sc\"" }' | bash
-#          rename ':' '_' /tmp/*.pkg.tar.zst
+          rename ':' '_' /tmp/*.pkg.tar.zst || true
       - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
