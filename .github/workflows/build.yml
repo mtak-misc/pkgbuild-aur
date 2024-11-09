@@ -29,7 +29,7 @@ jobs:
           su builder -c "gpg --recv 4EC1EA64"
           cd /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "git clone --depth 1 https://aur.archlinux.org/"$1".git" }' | bash
-          [ -n "${{ github.event.inputs.sed_param }}" ] && echo ${{ github.event.inputs.sed_param }} 
+          echo ${{ github.event.inputs.sed_param }} 
           chown builder -R /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "chown builder -R ./"$1 }' | bash
       - name: Build
