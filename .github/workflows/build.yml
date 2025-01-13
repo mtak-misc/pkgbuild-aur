@@ -27,6 +27,7 @@ jobs:
           pacman -Syu --noconfirm base-devel sudo git          
           useradd builder -m -G wheel && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           su builder -c "gpg --recv 4EC1EA64"
+          su builder -c "gpg --recv 2C393E0F18A9236D"
           cd /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "git clone --depth 1 https://aur.archlinux.org/"$1".git" }' | bash
           [ -n "${{ github.event.inputs.sed_param }}" ] && echo ${{ github.event.inputs.sed_param }} | sed 's/#/\n/g' | awk -F"," '{print "sed -i "$1" "$2}' | bash
