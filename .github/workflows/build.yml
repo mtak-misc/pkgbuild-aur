@@ -30,7 +30,7 @@ jobs:
           cd /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "git clone --depth 1 https://aur.archlinux.org/"$1".git" }' | bash
           [ -n "${{ github.event.inputs.sed_param }}" ] && echo ${{ github.event.inputs.sed_param }} | sed 's/##/\n/g' | awk -F"," '{print "sed -i "$1" "$2}' | bash
-          cat ${{ github.event.inputs.package_name }}/PKGBUILD
+          
           chown builder -R /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "chown builder -R ./"$1 }' | bash
       - name: Build
