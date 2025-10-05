@@ -22,6 +22,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Checkout bore repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'archlinux/aur'
+          path: ${{ github.event.inputs.package_name }}
       - name: Prepare for makepkg
         run: |
           pacman -Syu --noconfirm base-devel sudo git          
