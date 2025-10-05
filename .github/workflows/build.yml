@@ -27,6 +27,7 @@ jobs:
         with:
           repository: 'archlinux/aur'
           path: ${{ github.event.inputs.package_name }}
+          branch: ${{ github.event.inputs.package_name }} 
       - name: Prepare for makepkg
         run: |
           pacman -Syu --noconfirm base-devel sudo git          
@@ -34,7 +35,6 @@ jobs:
           su builder -c "gpg --recv 4EC1EA64"
           mv ${{ github.event.inputs.package_name }} /tmp
           cd /tmp
-          ls -l /tmp/${{ github.event.inputs.package_name }} 
           
           [ -n "${{ github.event.inputs.sed_param }}" ] && echo ${{ github.event.inputs.sed_param }} | sed 's/##/\n/g' | awk -F"," '{print "sed -i "$1" "$2}' | bash
           
