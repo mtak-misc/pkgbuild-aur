@@ -21,19 +21,19 @@ jobs:
     container: archlinux:latest    
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Checkout package repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: 'archlinux/aur'
           path: ${{ github.event.inputs.package_name }}
-          branch: ${{ github.event.inputs.package_name }} 
+          ref: ${{ github.event.inputs.package_name }} 
       - name: Prepare for makepkg
         run: |
           pacman -Syu --noconfirm base-devel sudo git          
           useradd builder -m -G wheel && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           su builder -c "gpg --recv 4EC1EA64"
-          ls -l ${{ github.event.inputs.package_name }} 
+        
           mv ${{ github.event.inputs.package_name }} /tmp
           cd /tmp
           
