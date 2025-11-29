@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Checkout package repo
         run: |
-          echo ${{ github.event.inputs.package_name }} | tr ',' '\n' | awk '{print "git clone --depth 1 https://aur.archlinux.org/"$1".git}' | bash
+          echo ${{ github.event.inputs.package_name }} | tr ',' '\n' | awk '{print "git clone --depth 1 https://aur.archlinux.org/"$1".git"}' | bash
 #        uses: actions/checkout@v5
 #        with:
 #          repository: 'archlinux/aur'
