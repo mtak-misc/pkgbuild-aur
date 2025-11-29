@@ -23,11 +23,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
       - name: Checkout package repo
-        uses: actions/checkout@v5
-        with:
-          repository: 'archlinux/aur'
-          path: ${{ github.event.inputs.package_name }}
-          ref: ${{ github.event.inputs.package_name }} 
+        run: |
+          echo ${{ github.event.inputs.package_name }} | tr ',' '\n' | awk '{print "git clone --depth 1 "$1}' | bash
+#        uses: actions/checkout@v5
+#        with:
+#          repository: 'archlinux/aur'
+#          path: ${{ github.event.inputs.package_name }}
+#          ref: ${{ github.event.inputs.package_name }} 
       - name: Prepare for makepkg
         run: |
           pacman -Syu --noconfirm base-devel sudo git          
