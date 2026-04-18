@@ -31,6 +31,7 @@ jobs:
 #          ref: ${{ github.event.inputs.package_name }} 
       - name: Prepare for makepkg
         run: |
+          gpg --recv-keys F1A55E62951B2143
           pacman -Syu --noconfirm base-devel sudo git          
           useradd builder -m -G wheel && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           su builder -c "gpg --recv 4EC1EA64"
