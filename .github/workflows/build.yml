@@ -48,6 +48,7 @@ jobs:
         # echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "git clone --depth 1 https://aur.archlinux.org/"$1".git" }' | bash
       - name: Build
         run: |
+          pacman -S gtk4 --noconfirm
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ pkginstall=""; if(NR!=1) pkginstall="pacman --noconfirm -U /tmp/*.pkg.tar.zst ; "; print pkginstall"cd /tmp/"$1"; su builder -c \"yes '' | makepkg --noconfirm -sc --skippgpcheck\"" }' | bash
           rename ':' '_' /tmp/*.pkg.tar.zst || true
       - name: Upload packages
