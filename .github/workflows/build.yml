@@ -32,6 +32,7 @@ jobs:
       - name: Prepare for makepkg
         run: |
           pacman -Syu --noconfirm base-devel sudo git
+          pacman -S gtk4 --noconfirm
           useradd builder -m -G wheel && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           su builder -c "gpg --recv 4EC1EA64"
 
