@@ -46,8 +46,8 @@ jobs:
           
           chown builder -R /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "chown builder -R ./"$1 }' | bash
+          sed -i "s|usr\"|usr\" \& rm -f \"/usr/share/glib-2.0/schemas/gschemas.compiled\" \& rm -f \"/usr/share/icons/hicolor/icon-theme.cache\"|g" ./otpclient/PKGBUILD
         # echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "git clone --depth 1 https://aur.archlinux.org/"$1".git" }' | bash
-          sedd -i "s/usr\"/usr\" \& rm -f \"\/usr\/share\/glib-2.0\/schemas\/gschemas.compiled\" \& rm -f \"\/usr\/share\/icons\/hicolor\/icon-theme.cache\"/g" ./otpclient/PKGBUILD
       - name: Build
         run: |
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ pkginstall=""; if(NR!=1) pkginstall="pacman --noconfirm -U /tmp/*.pkg.tar.zst ; "; print pkginstall"cd /tmp/"$1"; su builder -c \"yes '' | makepkg --noconfirm -sc --skippgpcheck\"" }' | bash
