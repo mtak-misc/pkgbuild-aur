@@ -46,7 +46,7 @@ jobs:
           
           chown builder -R /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "chown builder -R ./"$1 }' | bash
-          sed -i "s|usr\"|usr\" \& rm -f \"$pkgdir/usr/share/glib-2.0/schemas/gschemas.compiled\" \& rm -f \"$pkgdir/usr/share/icons/hicolor/icon-theme.cache\"|g" ./otpclient/PKGBUILD
+          sed -i "s|usr\"|usr\" \& rm -f \"\$pkgdir/usr/share/glib-2.0/schemas/gschemas.compiled\" \& rm -f \"\$pkgdir/usr/share/icons/hicolor/icon-theme.cache\"|g" ./otpclient/PKGBUILD
           cat ./otpclient/PKGBUILD
         # echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "git clone --depth 1 https://aur.archlinux.org/"$1".git" }' | bash
       - name: Build
