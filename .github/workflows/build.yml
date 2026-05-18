@@ -44,7 +44,6 @@ jobs:
 
           [ -n "$SED_PARAM" ] && echo "$SED_PARAM" | sed 's/##/\n/g' | awk -F"," '{print "sed -i "$1" "$2}' | cat
           [ -n "$SED_PARAM" ] && echo "$SED_PARAM" | sed 's/##/\n/g' | awk -F"," '{print "sed -i "$1" "$2}' | bash
-          cat ./otpclient/PKGBUILD
           
           chown builder -R /tmp
           echo ${{ github.event.inputs.package_name }} | sed 's/,/\n/g' | awk '{ print "chown builder -R ./"$1 }' | bash
